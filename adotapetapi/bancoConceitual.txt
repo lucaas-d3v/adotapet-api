@@ -1,0 +1,83 @@
+####### BASE ######
+
+PET {
+    idPet
+    nomePet
+    fk_cuidadores
+    idadePet
+    racaPet
+    localPet
+    
+}
+
+CUIDADOR {
+    idCuidador
+    nomeCuidador
+    fotoCuidador
+    post
+    
+    
+}
+
+POST {
+    fk_idPet
+    fk_idCuidador
+    fotosPet -> privavel novo banco
+    tituloPost
+    descricaoPost
+}
+
+
+###### CONCEITUAL #######
+
+idCuidador aqui como fk
+         |
+         ◇     #Tem
+(PET)(0, n) ----------> (1, 1)(CUIDADOR)
+`CUIDADOR pode ter ou n pet e se tiver, pode ter 1 ou mais`
+                           `PET so pode ter 1 CUIDADOR e somente 1`
+
+______________________
+
+idCuidador aqui como fk
+          |
+          ◇   #Postar
+(POST)(0, n) ---------> (1, 1)(CUIDADOR)
+`CUIDADOR pode fazer ou n post e pode fazer 1 ou mais`
+                           `POST tem que ser feito por um cuidador e so por 1`
+
+______________________
+
+               #Existe
+(POST)(0, n)  -------->   (1, 1)(PET)
+`PET pode ter um post, e so pode existir em mais de 1`
+                          `POST tem q ter um pet e so pode ter 1`
+                          
+
+####### LÓGICO ######
+
+PET {
+    idPet -> PRIMARY KEY AUTOINCREMENT
+    nomePet -> VARCHAR(20)
+    fk_idCuidador -> INTEGER
+    idadePet -> INTEGER(2) -> 2 ate 2 casas, indo de 01 # ate 99. q eu saiba, n tem PET que podem ser mais velhos q isso.
+    racaPet -> VARCHAR(30)
+    localPet -> VARCHAR(40)
+}
+
+CUIDADOR {
+    idCuidador -> PRIMARY KEY AUTOINCREMENT
+    nomeCuidador -> VARCHAR(50)
+    fotoCuidador -> VARCHAR(100) # Link da imagem vai ser guardada aqui.
+    fk_idPost -> INTEGER
+    
+}
+
+POST {
+    idPost -> INTEGER
+    fk_idPet -> INTEGER
+    fk_idCuidador -> INTEGER
+    fotosPet -> provavel novo banco
+    tituloPost -> VARCHAR(20)
+    descricaoPost -> TEXT
+ }
