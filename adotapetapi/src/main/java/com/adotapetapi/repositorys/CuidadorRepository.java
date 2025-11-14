@@ -22,6 +22,10 @@ public interface CuidadorRepository extends JpaRepository<Cuidador, Long> {
     @Query("SELECT p FROM Post p WHERE p.cuidador = :cuidador")
     List<Post> findPostsByCuidador(@Param("cuidador") Cuidador cuidador);
 
+
+    @Query("SELECT * FROM Cuidador WHERE emailCuidador = :email")
+    Optional<Cuidador> findCuidadorByEmail(@Param("email") String email);
+
     // Buscar pets onde o cuidador é o especificado
     @Query("SELECT pet FROM Pet pet WHERE pet.cuidador = :cuidador")
     List<Pet> findPetsByCuidador(@Param("cuidador") Cuidador cuidador);
